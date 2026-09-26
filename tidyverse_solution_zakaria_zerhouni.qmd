@@ -188,42 +188,30 @@ for(i in c(5,10,20)) {
 
 - Use and show R coding to calculate the "standard deviation" for each variable of the data table `mtcars` using the “Special For Loop Method”.
 
-**Note:**
-
-- There are two methods. Please see a quick explanation for both methods in below:
-
-  - Method 1:
+The "Special For Loop Method"
 
 ```{r}
-  multi_return <- function() {
-    my_list <- list("color" = "red", "size" = 20, "shape" = "round")
-    return(my_list) 
+# Create a function to use the "Special For Loop Method"
+dataframe_sd <- function(df) {
+  # Create a vector as long as the number of features in our data set
+  for_loop_output <- vector("numeric", ncol(df))
+  # Iterate the four loop across the numeric indices of the data set
+  for (i in seq_along(df)) {
+    # Replace the value in the vector with the output of sd
+    for_loop_output[[i]] <- sd(df[[i]])
   }
-```
-
-```{r}
-a <- multi_return()
-a$color
-
-a<- multi_return()
-a$shape
-
-a<- multi_return()
-a$size
-```
-
-- Method 2. The "Special For Loop Method"
-
-```{r}
-#| eval: false
-output <- vector("double", ncol(df))  # 1. output (use appropriate data frame instead of df)
-for (i in seq_along(df)) {            # 2. sequence
-  output[[i]] <- median(df[[i]])      # 3. body
+  # Return the output of the values of the sd function as a vector,
+  # while renaming the columns with the suffix .sd
+  final_output <- for_loop_output |> 
+         set_names(colnames(df) |> 
+             map_chr(paste, ".", 
+                     as.character(quote(sd)), collapse="") |> 
+               map_chr(str_replace_all, " ", ""))
+  return(final_output)
 }
-output
-```
 
-- **Solution:** coding to calculate the "standard deviation" for each variable
+dataframe_sd(mtcars)
+```
 
 <!-- ----- End of Problem 3 ----- -->
 
