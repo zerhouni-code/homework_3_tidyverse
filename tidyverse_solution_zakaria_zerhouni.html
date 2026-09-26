@@ -2518,18 +2518,100 @@ vertical-align: -.125em;
 <section id="problem-4" class="level1">
 <h1>Problem 4:</h1>
 <p>Generate a sequence of dates from <strong>January 1, 2015</strong> to <strong>December 31, 2025</strong>, spaced by every <strong>two months</strong>. Extract the <strong>year</strong>, <strong>quarter</strong>, and <strong>ISO week number</strong> for each date.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The dates are generated as a sequence from two dates.</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># With the by option we can generated a sequence every two months.</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>dates_2015_to_2025 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">ymd</span>(<span class="st">&quot;2015-01-01&quot;</span>), <span class="fu">ymd</span>(<span class="st">&quot;2025-12-31&quot;</span>), <span class="at">by=</span><span class="st">&quot;2 month&quot;</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Using year, month, and isoweek, we can extract the components of the </span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># dates.</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># We can then combine them into a data frame to store them in a tidy manner.</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>dates.data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">year</span>(dates_2015_to_2025),</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">month</span>(dates_2015_to_2025),</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">isoweek</span>(dates_2015_to_2025)) <span class="sc">|&gt;</span> <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Month&quot;</span>, <span class="st">&quot;ISO Week&quot;</span>))</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>dates.data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Year Month ISO Week
+1  2015     1        1
+2  2015     3        9
+3  2015     5       18
+4  2015     7       27
+5  2015     9       36
+6  2015    11       44
+7  2016     1       53
+8  2016     3        9
+9  2016     5       17
+10 2016     7       26
+11 2016     9       35
+12 2016    11       44
+13 2017     1       52
+14 2017     3        9
+15 2017     5       18
+16 2017     7       26
+17 2017     9       35
+18 2017    11       44
+19 2018     1        1
+20 2018     3        9
+21 2018     5       18
+22 2018     7       26
+23 2018     9       35
+24 2018    11       44
+25 2019     1        1
+26 2019     3        9
+27 2019     5       18
+28 2019     7       27
+29 2019     9       35
+30 2019    11       44
+31 2020     1        1
+32 2020     3        9
+33 2020     5       18
+34 2020     7       27
+35 2020     9       36
+36 2020    11       44
+37 2021     1       53
+38 2021     3        9
+39 2021     5       17
+40 2021     7       26
+41 2021     9       35
+42 2021    11       44
+43 2022     1       52
+44 2022     3        9
+45 2022     5       17
+46 2022     7       26
+47 2022     9       35
+48 2022    11       44
+49 2023     1       52
+50 2023     3        9
+51 2023     5       18
+52 2023     7       26
+53 2023     9       35
+54 2023    11       44
+55 2024     1        1
+56 2024     3        9
+57 2024     5       18
+58 2024     7       27
+59 2024     9       35
+60 2024    11       44
+61 2025     1        1
+62 2025     3        9
+63 2025     5       18
+64 2025     7       27
+65 2025     9       36
+66 2025    11       44</code></pre>
+</div>
+</div>
 <!-- ----- End of Problem 4 ----- -->
 </section>
 <section id="problem-5" class="level1">
 <h1>Problem 5</h1>
 <p>Given the following dates, compute the difference in <strong>months</strong> and <strong>weeks</strong> between each consecutive pair.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sample_dates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;2018-03-15&quot;</span>, <span class="st">&quot;2020-07-20&quot;</span>, <span class="st">&quot;2023-01-10&quot;</span>, <span class="st">&quot;2025-09-05&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sample_dates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;2018-03-15&quot;</span>, <span class="st">&quot;2020-07-20&quot;</span>, <span class="st">&quot;2023-01-10&quot;</span>, <span class="st">&quot;2025-09-05&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <!-- ----- End of Problem 5 ----- -->
 </section>
 <section id="problem-6" class="level1">
 <h1>Problem 6</h1>
 <p>Given a list of mixed date formats, use <code>map()</code> and <code>possibly()</code> from <code>purrr</code> to safely convert them to <strong>Date</strong> format and extract the <strong>month name</strong>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>date_strings <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;2023-06-10&quot;</span>, <span class="st">&quot;2022/12/25&quot;</span>, <span class="st">&quot;15-Aug-2021&quot;</span>, <span class="st">&quot;InvalidDate&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>date_strings <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;2023-06-10&quot;</span>, <span class="st">&quot;2022/12/25&quot;</span>, <span class="st">&quot;15-Aug-2021&quot;</span>, <span class="st">&quot;InvalidDate&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <!-- ----- End of Problem 6 ----- -->
 </section>
 
