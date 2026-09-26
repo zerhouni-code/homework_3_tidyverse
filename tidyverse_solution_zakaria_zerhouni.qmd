@@ -99,31 +99,88 @@ dt |> summary()
 
 Write a function that uses a for loop that, for each iteration, randomly draws 5 observations from an exponential distribution with "rate" parameter 1 (use `rexp()`) and calculates its "mean". It should do this 10,000 times. Choose an appropriate plot to plot the distribution of "means".
 
-- Solution: We want to fill a vector with values. We should create this vector beforehand using the `vector()` function.
+```{r}
+# Set a seed for reproducibility
+set.seed(4670329)
 
-- We want to create a vector of size 10 and we want its values to be numeric.
+# Write the function to average out 5 random exponential draws and then
+# append each average to a vector that is returned.
+exponential_draw <- function(n) {
+  # Initialize an empty vector
+  vector_of_averages <- c()
+  for(i in 1:n) {
+    # compute the mean of the 5 ran. exp draws with rate=1
+    mu <- mean(rexp(5,1))
+    # The rbind function is used to append the most recent mean in the loop.
+    vector_of_averages<- rbind(vector_of_averages,mu,deparse.level = 0)
+  }
+  return(vector_of_averages)
+}
 
-- Then we want to randomly draw 5 observations from an exponential distribution with "rate" parameter 1 (use `rexp(5, rate = 1)`) and calculates its "mean"
+# Save a vector of 10,000 averages.
+ten_thousand_draws <- exponential_draw(10000)
 
-- Now we want to create a vector that has length of 10 and its values are mean of this randomly selected exponential functions
-
-- Now we want to draw the histogram. But we need to have a data frame. Let us define a data frame.
-
-- Now we can draw a histogram
-
-  - **Now, let's solve the problem all in one step**
+# Plot the vector as a histogram to get a view of the shape of the 
+# distribution.
+ggplot(data = data.frame(ten_thousand_draws), aes(x = ten_thousand_draws))+geom_histogram(bins = 100)+labs(title = "Histogram of 10,000 Exponential Averages", x = "Average of 5 Rand. Exp Draws", subtitle = "Sample generated using a for loop")
+```
 
 ## 2_a:
 
 - Repeat part 1 by using a `map_*()` function.
 
+```{r}
+# The same seed is used.
+set.seed(4670329)
+# A vector of 10000 is created and then mapped with map_dbl. This produces
+# a sample of averages of 5 random exponential values generated.
+ten_thousand_draws.map <- vector(mode="numeric", length = 10000) |>  
+  map_dbl(\(x) mean(rexp(5,1)))
+# An anonymous function is used inside of map_dbl to reassign the 
+# value in the original vector.
+
+#Plot the vector as a histogram to get a view of the shape of the 
+# distribution.
+ggplot(data = data.frame(ten_thousand_draws.map), aes(x = ten_thousand_draws))+geom_histogram(bins = 100)+labs(title = "Histogram of 10,000 Exponential Averages", x = "Average of 5 Rand. Exp Draws",subtitle="Sample generated with the map function")
+```
+
+
 ## 2_b:
 
 - Repeat part 1 by using the `replicate()` function.
 
+```{r}
+set.seed(4670329)
+# Replicate is compact enough to fit directly into the ggplot object.
+ggplot(data = data.frame(draws = replicate(10000,mean(rexp(5,1)))),
+       aes(x = draws)
+       )+
+  geom_histogram(bins=100)+
+  labs(title = "Histogram of 10,000 Exponential Averages", x = "Average of 5 Rand. Exp Draws",subtitle = "Sample generated using the replicate function")
+```
+
+
 ## 2_c:
 
 - Use a another for loop that will print out plots for sample sizes of 5, 10, and 20 observations (instead of just 5).
+
+```{r}
+set.seed(4670329)
+# Iterate through a list of the desired sample sizes in the for loop
+for(i in c(5,10,20)) {
+  # Using the replicate method, we generate our 10000 sample by 
+  # generating i random exponential draws and taking the mean
+  p <- ggplot(data = data.frame(draws = replicate(10000,mean(rexp(i,1)))),
+       aes(x = draws)
+       )+
+  geom_histogram(bins=100)+
+  labs(title = "Histogram of 10,000 Exponential Averages", x = paste( "Average of ", i, " Rand. Exp Draws" ),subtitle = "Sample generated using the replicate function")
+  # The paste function is used to change the number of draws in the x label.
+  # Each graphic has to be printed to render from within the for loop.
+  print(p)
+}
+```
+
 
 <!-- ----- End of Problem 2 ----- -->
 
