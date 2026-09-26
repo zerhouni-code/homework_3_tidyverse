@@ -4,7 +4,8 @@ subtitle: "Hamid Semiyari"
 format:
   html:
     embed-resources: true
-editor: visual
+author: "Zak Zerhouni"
+date: today
 ---
 
 ```{r setup, include=FALSE}
@@ -39,30 +40,60 @@ tribble( ~x,    ~y,    ~w,    ~z,
               202,   210,  234,    218,
               110,   122,  131,    128,
 ) -> dt
+# Copied and pasted the tribble to run it.
+tribble( ~x,    ~y,    ~w,    ~z,
+              210,   300,   220,   180,
+              102,   100,   119,   187,
+              176,   175,   188,   173,
+              87,    95,   91,     94,
+              202,   210,  234,    218,
+              110,   122,  131,    128,
+)
 ```
 
 ## 1_a:
 
 - Use and show a `map` function to find the "mean" of each column of the `dt` data table
 
-
+```{r}
+# The map function is used to generate a list of the mean of each column
+dt |> 
+  set_names(c("x.Mean", "y.Mean", "w.Mean", "z.Mean")) |> 
+  map(mean) |> data.frame()
+```
 
 ## 1_b:
 
 - Use and show a `map` function to find the "standard deviation" of each column of the `dt` data table.
 
-
+```{r}
+# The function we map is changed to sd for the standard deviation
+dt |> set_names(c("x.SD", "y.SD", "w.SD", "z.SD")) |> map(sd) |> data.frame()
+```
 
 ## 1_c:
 
 - Use and show a map function that will calculate the "square root" of each value of each column of the data table `dt`.
 
+```{r}
+# The function mapped is changed to sqrt
+dt |> set_names(c("x.sqrt", "y.sqrt", "w.sqrt", "z.sqrt")) |> map(sqrt) |> data.frame()
+
+```
 
 
 ## 1_d:
 
 - Use R code to find the "mean", "max", "1st Quartile", "3rd Quartile", "Median", and "Min" for each column of the `dt` data table. (Hint: You do not have to use a map function)
 
+```{r}
+# The summary function is used to display the min, 1st quartile, median, 
+# mean, 3rd quartile, and the max.
+dt |> summary()
+```
+
+
+<!-- ----- End of Problem 1 ----- -->
 
 # Problem 2:
 
@@ -72,40 +103,29 @@ Write a function that uses a for loop that, for each iteration, randomly draws 5
 
 - We want to create a vector of size 10 and we want its values to be numeric.
 
-
-
 - Then we want to randomly draw 5 observations from an exponential distribution with "rate" parameter 1 (use `rexp(5, rate = 1)`) and calculates its "mean"
-
 
 - Now we want to create a vector that has length of 10 and its values are mean of this randomly selected exponential functions
 
-
-
 - Now we want to draw the histogram. But we need to have a data frame. Let us define a data frame.
-
 
 - Now we can draw a histogram
 
-
-
   - **Now, let's solve the problem all in one step**
-
 
 ## 2_a:
 
 - Repeat part 1 by using a `map_*()` function.
 
-
 ## 2_b:
 
 - Repeat part 1 by using the `replicate()` function.
-
 
 ## 2_c:
 
 - Use a another for loop that will print out plots for sample sizes of 5, 10, and 20 observations (instead of just 5).
 
-
+<!-- ----- End of Problem 2 ----- -->
 
 # Problem 3:
 
@@ -146,13 +166,15 @@ for (i in seq_along(df)) {            # 2. sequence
 output
 ```
 
-
 - **Solution:** coding to calculate the "standard deviation" for each variable
+
+<!-- ----- End of Problem 3 ----- -->
 
 # Problem 4:
 
 Generate a sequence of dates from **January 1, 2015** to **December 31, 2025**, spaced by every **two months**. Extract the **year**, **quarter**, and **ISO week number** for each date.
 
+<!-- ----- End of Problem 4 ----- -->
 
 # Problem 5
 
@@ -161,8 +183,7 @@ Given the following dates, compute the difference in **months** and **weeks** be
 ``` r
 sample_dates <- c("2018-03-15", "2020-07-20", "2023-01-10", "2025-09-05")
 ```
-
-
+<!-- ----- End of Problem 5 ----- -->
 
 # Problem 6
 
@@ -171,3 +192,5 @@ Given a list of mixed date formats, use `map()` and `possibly()` from `purrr` to
 ``` r
 date_strings <- list("2023-06-10", "2022/12/25", "15-Aug-2021", "InvalidDate")
 ```
+
+<!-- ----- End of Problem 6 ----- -->
