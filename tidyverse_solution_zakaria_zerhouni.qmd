@@ -1,0 +1,173 @@
+---
+title: "Homework Tidyverse"
+subtitle: "Hamid Semiyari"
+format:
+  html:
+    embed-resources: true
+editor: visual
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  eval = TRUE,
+  fig.height = 3,
+  fig.width = 6,
+  fig.align = "center"
+)
+
+ggplot2::theme_set(ggplot2::theme_bw())
+```
+
+```{r}
+#| message: false
+#| warning: false
+if(!require("pacman")) install.packages("pacman")
+pacman::p_load(tidyverse, gapminder, broom)
+```
+
+# Problem 1:
+
+Copy paste and run the tribble given below.
+
+```{r}
+tribble( ~x,    ~y,    ~w,    ~z,
+              210,   300,   220,   180,
+              102,   100,   119,   187,
+              176,   175,   188,   173,
+              87,    95,   91,     94,
+              202,   210,  234,    218,
+              110,   122,  131,    128,
+) -> dt
+```
+
+## 1_a:
+
+- Use and show a `map` function to find the "mean" of each column of the `dt` data table
+
+
+
+## 1_b:
+
+- Use and show a `map` function to find the "standard deviation" of each column of the `dt` data table.
+
+
+
+## 1_c:
+
+- Use and show a map function that will calculate the "square root" of each value of each column of the data table `dt`.
+
+
+
+## 1_d:
+
+- Use R code to find the "mean", "max", "1st Quartile", "3rd Quartile", "Median", and "Min" for each column of the `dt` data table. (Hint: You do not have to use a map function)
+
+
+# Problem 2:
+
+Write a function that uses a for loop that, for each iteration, randomly draws 5 observations from an exponential distribution with "rate" parameter 1 (use `rexp()`) and calculates its "mean". It should do this 10,000 times. Choose an appropriate plot to plot the distribution of "means".
+
+- Solution: We want to fill a vector with values. We should create this vector beforehand using the `vector()` function.
+
+- We want to create a vector of size 10 and we want its values to be numeric.
+
+
+
+- Then we want to randomly draw 5 observations from an exponential distribution with "rate" parameter 1 (use `rexp(5, rate = 1)`) and calculates its "mean"
+
+
+- Now we want to create a vector that has length of 10 and its values are mean of this randomly selected exponential functions
+
+
+
+- Now we want to draw the histogram. But we need to have a data frame. Let us define a data frame.
+
+
+- Now we can draw a histogram
+
+
+
+  - **Now, let's solve the problem all in one step**
+
+
+## 2_a:
+
+- Repeat part 1 by using a `map_*()` function.
+
+
+## 2_b:
+
+- Repeat part 1 by using the `replicate()` function.
+
+
+## 2_c:
+
+- Use a another for loop that will print out plots for sample sizes of 5, 10, and 20 observations (instead of just 5).
+
+
+
+# Problem 3:
+
+- Use and show R coding to calculate the "standard deviation" for each variable of the data table `mtcars` using the “Special For Loop Method”.
+
+**Note:**
+
+- There are two methods. Please see a quick explanation for both methods in below:
+
+  - Method 1:
+
+```{r}
+  multi_return <- function() {
+    my_list <- list("color" = "red", "size" = 20, "shape" = "round")
+    return(my_list) 
+  }
+```
+
+```{r}
+a <- multi_return()
+a$color
+
+a<- multi_return()
+a$shape
+
+a<- multi_return()
+a$size
+```
+
+- Method 2. The "Special For Loop Method"
+
+```{r}
+#| eval: false
+output <- vector("double", ncol(df))  # 1. output (use appropriate data frame instead of df)
+for (i in seq_along(df)) {            # 2. sequence
+  output[[i]] <- median(df[[i]])      # 3. body
+}
+output
+```
+
+
+- **Solution:** coding to calculate the "standard deviation" for each variable
+
+# Problem 4:
+
+Generate a sequence of dates from **January 1, 2015** to **December 31, 2025**, spaced by every **two months**. Extract the **year**, **quarter**, and **ISO week number** for each date.
+
+
+# Problem 5
+
+Given the following dates, compute the difference in **months** and **weeks** between each consecutive pair.
+
+``` r
+sample_dates <- c("2018-03-15", "2020-07-20", "2023-01-10", "2025-09-05")
+```
+
+
+
+# Problem 6
+
+Given a list of mixed date formats, use `map()` and `possibly()` from `purrr` to safely convert them to **Date** format and extract the **month name**.
+
+``` r
+date_strings <- list("2023-06-10", "2022/12/25", "15-Aug-2021", "InvalidDate")
+```
