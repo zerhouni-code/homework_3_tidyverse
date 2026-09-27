@@ -2585,7 +2585,23 @@ vertical-align: -.125em;
 <section id="problem-6" class="level1">
 <h1>Problem 6</h1>
 <p>Given a list of mixed date formats, use <code>map()</code> and <code>possibly()</code> from <code>purrr</code> to safely convert them to <strong>Date</strong> format and extract the <strong>month name</strong>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>date_strings <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;2023-06-10&quot;</span>, <span class="st">&quot;2022/12/25&quot;</span>, <span class="st">&quot;15-Aug-2021&quot;</span>, <span class="st">&quot;InvalidDate&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>date_strings <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;2023-06-10&quot;</span>, <span class="st">&quot;2022/12/25&quot;</span>, <span class="st">&quot;15-Aug-2021&quot;</span>, <span class="st">&quot;InvalidDate&quot;</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a purrr:possibly function in order to pass parameters through map_vec.</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>parse_dt_possibly <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">possibly</span>(parse_date_time, <span class="cn">NA</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use map_vec to use the possibly function to handle errors.</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Enter the &#39;ymd&#39; and &#39;dmy&#39; formats seen in the list as parameters for parse_date_time.</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>parsed_dates <span class="ot">&lt;-</span> date_strings <span class="sc">|&gt;</span> </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_vec</span>(parse_dt_possibly, <span class="at">orders =</span> <span class="fu">c</span>(<span class="st">&#39;ymd&#39;</span>,<span class="st">&#39;dmy&#39;</span>),<span class="at">quiet=</span><span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">as.Date</span>() <span class="sc">|&gt;</span> <span class="fu">month</span>(<span class="at">label =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Use as.Date() to conver the POSIXct ojects into Date objects.</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the label setting in the month function to TRUE to display the month names.</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>parsed_dates</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Jun  Dec  Aug  &lt;NA&gt;
+12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec</code></pre>
+</div>
+</div>
 <!-- ----- End of Problem 6 ----- -->
 </section>
 

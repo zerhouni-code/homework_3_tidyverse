@@ -276,8 +276,18 @@ compute_differences(sample_dates)
 
 Given a list of mixed date formats, use `map()` and `possibly()` from `purrr` to safely convert them to **Date** format and extract the **month name**.
 
-``` r
+```{r}
 date_strings <- list("2023-06-10", "2022/12/25", "15-Aug-2021", "InvalidDate")
+# Create a purrr:possibly function in order to pass parameters through map_vec.
+parse_dt_possibly <- purrr::possibly(parse_date_time, NA)
+# Use map_vec to use the possibly function to handle errors.
+# Enter the 'ymd' and 'dmy' formats seen in the list as parameters for parse_date_time.
+parsed_dates <- date_strings |> 
+  map_vec(parse_dt_possibly, orders = c('ymd','dmy'),quiet=TRUE) |> as.Date() |> month(label = TRUE)
+# Use as.Date() to conver the POSIXct ojects into Date objects.
+# Change the label setting in the month function to TRUE to display the month names.
+
+parsed_dates
 ```
 
 <!-- ----- End of Problem 6 ----- -->
