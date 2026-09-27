@@ -230,7 +230,7 @@ dates_2015_to_2025 <- seq(ymd("2015-01-01"), ymd("2025-12-31"), by="2 month")
 dates.data <- data.frame(year(dates_2015_to_2025),
   month(dates_2015_to_2025),
   isoweek(dates_2015_to_2025)) |> set_names(c("Year", "Month", "ISO Week"))
-dates.data
+head(dates.data)
 ```
 
 
@@ -240,9 +240,36 @@ dates.data
 
 Given the following dates, compute the difference in **months** and **weeks** between each consecutive pair.
 
-``` r
-sample_dates <- c("2018-03-15", "2020-07-20", "2023-01-10", "2025-09-05")
+```{r}
+# Convert the strings into Date objects.
+sample_dates <- ymd(c("2018-03-15", "2020-07-20", "2023-01-10", "2025-09-05"))
+
+# Create a function to compute the months and weeks between consecutive dates.
+compute_differences <- function(sample_dates) {
+  # Initialize vector for months.
+  months_difference <- c()
+  # Initialize vector for weeks.
+  weeks_difference <- c()
+  for(i in 2:length(sample_dates)) {
+    # Convert to an Interval object.
+    difference_interval <- interval(sample_dates[i-1],sample_dates[i])
+    # Divide the Interval object by a one month or one week period object respectively.
+    difference_in_months <- difference_interval/months(1)
+    difference_in_weeks <- difference_interval/weeks(1)
+    # Append the calculated difference value to the respective vector.
+    months_difference <- rbind(months_difference,difference_in_months, deparse.level = 0)
+    weeks_difference <- rbind(weeks_difference,difference_in_weeks, deparse.level = 0)
+  }
+  # Store the computed vectors in a data frame.
+  difference_dataframe <- data.frame(months = months_difference,
+                                     weeks = weeks_difference)
+  # Return the completed difference computations as a data frame.
+  return(difference_dataframe)
+}
+
+compute_differences(sample_dates)
 ```
+
 <!-- ----- End of Problem 5 ----- -->
 
 # Problem 6
