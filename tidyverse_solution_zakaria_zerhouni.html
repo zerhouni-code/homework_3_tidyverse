@@ -2523,21 +2523,21 @@ vertical-align: -.125em;
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># With the by option we can generated a sequence every two months.</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>dates_2015_to_2025 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">ymd</span>(<span class="st">&quot;2015-01-01&quot;</span>), <span class="fu">ymd</span>(<span class="st">&quot;2025-12-31&quot;</span>), <span class="at">by=</span><span class="st">&quot;2 month&quot;</span>)</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Using year, month, and isoweek, we can extract the components of the </span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Using year, quarter, month, and isoweek, we can extract the components of the </span></span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># dates.</span></span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># We can then combine them into a data frame to store them in a tidy manner.</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>dates.data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">year</span>(dates_2015_to_2025),</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>dates.data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">year</span>(dates_2015_to_2025), <span class="fu">quarter</span>(dates_2015_to_2025),</span>
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">month</span>(dates_2015_to_2025),</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">isoweek</span>(dates_2015_to_2025)) <span class="sc">|&gt;</span> <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Month&quot;</span>, <span class="st">&quot;ISO Week&quot;</span>))</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">isoweek</span>(dates_2015_to_2025)) <span class="sc">|&gt;</span> <span class="fu">set_names</span>(<span class="fu">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Quarter&quot;</span>, <span class="st">&quot;Month&quot;</span>, <span class="st">&quot;ISO Week&quot;</span>))</span>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dates.data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  Year Month ISO Week
-1 2015     1        1
-2 2015     3        9
-3 2015     5       18
-4 2015     7       27
-5 2015     9       36
-6 2015    11       44</code></pre>
+<pre><code>  Year Quarter Month ISO Week
+1 2015       1     1        1
+2 2015       1     3        9
+3 2015       2     5       18
+4 2015       3     7       27
+5 2015       3     9       36
+6 2015       4    11       44</code></pre>
 </div>
 </div>
 <!-- ----- End of Problem 4 ----- -->

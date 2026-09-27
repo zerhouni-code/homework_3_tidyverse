@@ -224,12 +224,12 @@ Generate a sequence of dates from **January 1, 2015** to **December 31, 2025**, 
 # With the by option we can generated a sequence every two months.
 dates_2015_to_2025 <- seq(ymd("2015-01-01"), ymd("2025-12-31"), by="2 month")
 
-# Using year, month, and isoweek, we can extract the components of the 
+# Using year, quarter, month, and isoweek, we can extract the components of the 
 # dates.
 # We can then combine them into a data frame to store them in a tidy manner.
-dates.data <- data.frame(year(dates_2015_to_2025),
+dates.data <- data.frame(year(dates_2015_to_2025), quarter(dates_2015_to_2025),
   month(dates_2015_to_2025),
-  isoweek(dates_2015_to_2025)) |> set_names(c("Year", "Month", "ISO Week"))
+  isoweek(dates_2015_to_2025)) |> set_names(c("Year", "Quarter", "Month", "ISO Week"))
 head(dates.data)
 ```
 
